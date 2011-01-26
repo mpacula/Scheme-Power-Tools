@@ -41,3 +41,6 @@
 (compile-load "memo")
 (compile-load "monads")
 (compile-load "events")
+(compile-load "strings")
+(compile-load "suffix-tree")
+'ok
