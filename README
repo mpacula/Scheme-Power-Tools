@@ -1,0 +1,32 @@
+1. INTRODUCTION
+
+Hello and thank you for your interest in Scheme Power Tools!
+
+Scheme Power Tools is a collection of Scheme utilities developed
+since spring 2010, when I took MIT's 6.945: Adventures in Advanced Symbolic 
+Programming.
+
+Scheme Power Tools was developed and tested with MIT Scheme. It might work
+with other Schemes, but your mileage may vary. For instructions on how
+to get started with MIT Scheme, you are welcome to read
+http://blog.mpacula.com/2010/08/07/getting-started-with-mit-scheme/
+
+
+
+2. LOADING
+
+To start using Scheme Power Tools, just load the file scheme-tools.scm:
+(load "scheme-tools")
+
+This should give you access to all the modules.
+
+
+
+3. DOCUMENTATION
+
+All modules have been documented at: 
+http://mpacula.com/scheme-tools/docs
+
+
+A alphabetical list of available functions is available at:
+http://mpacula.com/scheme-tools/docs/list.html
