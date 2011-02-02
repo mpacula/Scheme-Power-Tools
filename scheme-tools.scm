@@ -43,4 +43,5 @@
 (compile-load "events")
 (compile-load "strings")
 (compile-load "suffix-tree")
+(compile-load "patterns")
 'ok

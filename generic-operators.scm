@@ -67,6 +67,12 @@
                         ((defgen name arity)
                          (defgen name arity fail-handler))))
 
+
+(define (genop? obj)
+  (note:get obj 'is-genop #f))
+
+(define *no-handler* (list 'no-handler))
+
 ;; @ignore
 (define (genop:make name arity default-handler)
   ;; @ignore
@@ -78,20 +84,27 @@
           (error (string-append "^ Invalid number of arguments to generic operator " (symbol->string name)))))
     
     (let for-arg
-        ((decision-tree (note:get operator 'decision-tree #f))
+        ((top-level #t)
+         (decision-tree (note:get operator 'decision-tree #f))
          (args arguments))
       (if (null? args)
           (apply decision-tree arguments) ; we're done!
           (let for-pred
               ((argument-predicates decision-tree))
-            (cond ((null? argument-predicates) (apply default-handler args)) ; oops, no predicates matched current argument
+            (cond ((null? argument-predicates)
+                   (if top-level ; oops, no predicates matched current argument
+                       (apply default-handler args)
+                       *no-handler*)) 
                   (else (let* ((predicate-pair (car argument-predicates))
                                (pred (car predicate-pair))
                                (next (cdr predicate-pair)))
                           (if (pred (car args))
-                              (for-arg next (cdr args)) ; match next argument
+                              (let ((result (for-arg #f next (cdr args))))  ; match next argument
+                                   (if (not (equal? result *no-handler*))
+                                       result
+                                       (for-pred (cdr argument-predicates))))
                               (for-pred (cdr argument-predicates)))))))))) ; match next predicate
-  
+  (note:attach! operator 'is-genop #t)
   (note:attach! operator 'name name)
   (note:attach! operator 'arity arity)
   (note:attach! operator 'decision-tree ())

@@ -442,6 +442,10 @@
   (add! lst2)
   (hash-set->list hash-set))
 
+;; Removes duplicates from a list
+(define (no-dups lst)
+  (set-union lst lst)) 
+
 
 ;; Checks if a predicate holds for at least one element in a list.
 (define (for-any? pred lst)
@@ -539,3 +543,12 @@
     (apply min (vector->list last-col))))
 
 
+
+;; Like map, but works on improper lists. Returns <code>f(val)</code> if the argument
+;; is an atom, and <code>()</code> if it's an empty list
+(define (improper-map f val)
+  (cond ((pair? val) (cons (f (car val))
+                           (improper-map f (cdr val))))
+        ((null? val) '())
+        (else ; it's an atom
+         (f val))))
