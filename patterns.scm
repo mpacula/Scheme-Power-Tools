@@ -29,14 +29,16 @@
 ;;; <code>let</code>-like statements (<code>plet</code>) and pattern switch statements /
 ;;; (<code>pcase</code>). The pattern language was inspired by the /
 ;;; <a href='http://groups.csail.mit.edu/mac/users/gjs/6.945/'>6.945</a> Pattern Matcher, /
-;;; although no code was borrowed.
+;;; although no code was borrowed.<br/><br/> /
+;;; Pattern language reference is available /
+;;; <a href='http://mpacula.com/scheme-tools/docs/pattern-language.html'>here</a>.
 
 
 
 ; MATCH RESULT
 
 ;;@ignore
-(define clone (compose deserialize serialize))
+(define clone (compose alist->hash-table hash-table->alist))
 
 ;;@ignore
 (define (match-result:make) (make-strong-eqv-hash-table))
@@ -504,7 +506,6 @@
 ;; whether a list contains at least one number:
 ;; <pre>
 #|
-(define has-number?)
 (pdefine (has-number? (??prefix (? num ,number?) ??suffix)) #t)
 ;Value: ok
 
