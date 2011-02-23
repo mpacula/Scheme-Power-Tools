@@ -25,7 +25,7 @@
 ;;; @name Unit Testing
 ;;; @desc Provides simple JUnit-style unit testing for Scheme.
 
-(define *run-tests?* #t)
+(define *run-tests?* #f)
 
 ;;@ignore
 (define (print-indented indent . str)
@@ -107,8 +107,8 @@
      (let ((suite (make-test-suite name t1 ...)))
        suite))))
 
-;; Runs a test suite if tests are enabled (default), or returns without doing
-;; anything if they are disabled. See c{enable-unit-tests} and c{disable-unit-tests}
+;; Runs a test suite if tests are enabled, or returns without doing
+;; anything if they are disabled (default). See c{enable-unit-tests} and c{disable-unit-tests}
 ;; for more information.
 (define (run-suite suite)
   (if *run-tests?*
