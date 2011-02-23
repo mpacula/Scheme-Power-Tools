@@ -95,13 +95,16 @@
 (define (split-at delimiters lst)
   (define d? (member-of delimiters))
 
-  (cond ((null? lst) '())
-        ((d? (car lst)) (split-at delimiters (cdr lst)))
-        (else         
-         (let* ((split-parts (take-until d? lst))
-                (current (car split-parts))
-                (remaining (cdr split-parts)))
-           (cons current (split-at delimiters remaining))))))
+  (let lp
+      ((sofar '())
+       (lst lst))    
+    (cond ((null? lst) (reverse sofar))
+          ((d? (car lst)) (lp sofar (cdr lst)))
+          (else         
+           (let* ((split-parts (take-until d? lst))
+                  (current (car split-parts))
+                  (remaining (cdr split-parts)))
+             (lp (cons current sofar) remaining))))))
      
 
 
@@ -552,3 +555,13 @@
         ((null? val) '())
         (else ; it's an atom
          (f val))))
+
+
+
+(define-syntax default
+  (syntax-rules ()
+      ((default name val)
+       (begin
+         (if (default-object? name)
+             (set! name val))
+         name))))
