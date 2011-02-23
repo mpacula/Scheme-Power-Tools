@@ -44,4 +44,5 @@
 (compile-load "strings")
 (compile-load "suffix-tree")
 (compile-load "patterns")
+(compile-load "unit-testing")
 'ok
