@@ -147,6 +147,14 @@
   (pathname-new-directory source (pathname-directory (pathname-as-directory dest))))
 
 
-;; alias for pathname-new-name
+;; Alias for pathname-new-name
 (define path-rename pathname-new-name)
 
+
+
+;; Reads contents of a file and returns it as a string
+(define (read-file-as-string pathname)
+  (call-with-input-file
+      pathname
+    (lambda (port)
+      (input-port/read-string port (char-set)))))
